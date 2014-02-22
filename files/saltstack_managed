@@ -1,0 +1,1 @@
+This {{grains['os']}} machine is managed by salt.

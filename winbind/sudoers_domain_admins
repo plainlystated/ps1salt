@@ -1,0 +1,2 @@
+%domain\ admins ALL=(ALL:ALL) ALL
+%PS1\\domain\ admins ALL=(ALL:ALL) ALL
