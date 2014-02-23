@@ -8,8 +8,8 @@ krb5:
     - name: krb5-user
 {% endif %}
 
-{% if 'roles' in grains %}
-{% if not 'dc' in grains['roles'] %}
+{% if 'roles' in grains and 'dc' in grains['roles']%}
+{% else %}
 winbindd:
 {% if grains['os'] == 'Ubuntu' %}
   pkg:
@@ -23,7 +23,6 @@ winbindd:
     - name: winbind
 {% endif %}
 {% endif %}
-{% endif %}
 
 
 include:
@@ -31,12 +30,10 @@ include:
 /etc/samba/smb.conf:
   file:
     - managed
-{% if 'roles' in grains%}
-    {% if 'dc' in grains['roles'] %}
+{% if 'roles' in grains and 'dc' in grains['roles'] %}
     - source: salt://winbind/dc.smb.conf
-    {% else %}
+{% else %}
     - source: salt://winbind/smb.conf
-    {% endif %}
 {% endif %}
     - user: root
     - group: root
