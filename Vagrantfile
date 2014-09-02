@@ -14,13 +14,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       arch.vm.hostname = "arch"
   end
 
-  config.vm.define "ubuntu1204" do |ubuntu|
-      ubuntu.vm.box = "presise64"
-      ubuntu.vm.box_url = "http://files.vagrantup.com/precise64.box"
-      ubuntu.vm.hostname = "precise64"
-  end
-
-  config.vm.define "dc" do |dc|
+  config.vm.define "dc", :autostart => false do |dc|
      dc.vm.box = "archlinux-x86_64"
      dc.vm.box_url = "http://cloud.terry.im/vagrant/archlinux-x86_64.box"
      dc.vm.hostname = "dc"
@@ -30,6 +24,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
      end
   end
 
+  # work-around for issue with salt bootstrap
+  config.vm.provision :shell, :inline => "pacman --noconfirm -S community/lsb-release"
 
   config.vm.synced_folder ".", "/srv/salt/"
 
@@ -41,5 +37,4 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       salt.minion_config = "vagrant/minion"
       salt.run_highstate = true
   end
-
 end

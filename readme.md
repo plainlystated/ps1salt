@@ -5,7 +5,6 @@ SaltStack for Pumping Station: One
 Supported Platforms
 -------------------
 
-* Ubuntu 12.04
 * Arch Linux
 
 Install Configurations
