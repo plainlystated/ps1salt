@@ -30,7 +30,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder ".", "/srv/salt/"
 
   config.vm.provider "virtualbox" do |vb|
-     vb.gui = true
      vb.customize ["modifyvm", :id, "--memory", "1024"]
   end
   config.vm.provision :salt do |salt|
